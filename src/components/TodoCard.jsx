@@ -11,6 +11,9 @@ import DeleteIcon from "@material-ui/icons/Delete";
 import ExpandLessIcon from "@material-ui/icons/ExpandLess";
 import ExpandMoreIcon from "@material-ui/icons/ExpandMore";
 import Proptypes from "prop-types";
+import { EditAttributesSharp } from "@material-ui/icons";
+import EditForm from "./EditForm";
+import TodoForm from "./TodoForm";
 
 const useStyles = makeStyles((theme) => ({
   card: {
@@ -28,12 +31,18 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-const TodoCard = ({ todo, onDeleteTodo }) => {
+const TodoCard = ({ todo, onDeleteTodo, onUpdateTodo }) => {
+  const [isShowEditForm, setIsShowEditForm] = useState(false);
   const [showFullDescription, setShowFullDescription] = useState(false);
   const classes = useStyles();
 
   const handleToggleDescription = () => {
     setShowFullDescription(!showFullDescription);
+  };
+
+  const handleShowForm = () => {
+    setIsShowEditForm(true);
+    console.log(true);
   };
 
   return (
@@ -59,6 +68,15 @@ const TodoCard = ({ todo, onDeleteTodo }) => {
             {showFullDescription ? <ExpandLessIcon /> : <ExpandMoreIcon />}
           </IconButton>
         )}
+
+        <IconButton
+          edge="center"
+          aria-label="update"
+          onClick={() => onUpdateTodo(todo.id)}
+        >
+          <EditAttributesSharp onClick={handleShowForm} />
+          {isShowEditForm && <TodoForm todo={todo} />}
+        </IconButton>
         <IconButton
           edge="end"
           aria-label="delete"
@@ -74,6 +92,7 @@ const TodoCard = ({ todo, onDeleteTodo }) => {
 TodoCard.propTypes = {
   todo: Proptypes.object,
   onDeleteTodo: Proptypes.func,
+  onUpdateTodo: Proptypes.func,
 };
 
 export default TodoCard;
