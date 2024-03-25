@@ -1,4 +1,4 @@
-import { useState } from "react";
+import React, { useState } from "react";
 import {
   Button,
   TextField,
@@ -8,46 +8,33 @@ import {
   DialogTitle,
 } from "@material-ui/core";
 
-const TodoForm = ({ onSaveTodo }) => {
-  const [open, setOpen] = useState(false);
-  const [todo, setTodo] = useState({
+const EditForm = ({ onSaveTodo }) => {
+  const [open, setOpen] = useState(true);
+  const [editTodo, setEditTodo] = useState({
     title: "",
     description: "",
     id: Date.now(),
   });
 
-  const handleClickOpen = () => {
-    setOpen(true);
-  };
-
   const handleClose = () => {
     setOpen(false);
-    setTodo({ title: "", description: "", id: Date.now() });
+    setEditTodo({ title: "", description: "", id: Date.now() });
   };
 
   const handleSave = () => {
-    onSaveTodo(todo);
-    setTodo({ title: "", description: "", id: Date.now() });
+    onSaveTodo(editTodo);
+    setEditTodo({ title: "", description: "", id: Date.now() });
     handleClose();
   };
 
   return (
     <div>
-      <Button
-        variant="outlined"
-        color="primary"
-        onClick={handleClickOpen}
-        style={{ marginBottom: "2rem" }}
-      >
-        Add Todo
-      </Button>
-
       <Dialog
         open={open}
         onClose={handleClose}
         aria-labelledby="form-dialog-title"
       >
-        <DialogTitle id="form-dialog-title">New Todo</DialogTitle>
+        <DialogTitle id="form-dialog-title">Edit Todo</DialogTitle>
         <DialogContent>
           <TextField
             autoFocus
@@ -59,7 +46,6 @@ const TodoForm = ({ onSaveTodo }) => {
             value={todo.title}
             onChange={(e) => setTodo({ ...todo, title: e.target.value })}
           />
-
           <TextField
             margin="dense"
             id="description"
@@ -85,4 +71,4 @@ const TodoForm = ({ onSaveTodo }) => {
   );
 };
 
-export default TodoForm;
+export default EditForm;

@@ -3,7 +3,7 @@ import React from "react";
 import { Grid } from "@material-ui/core";
 import TodoCard from "./TodoCard"; // Import the TodoCard component
 
-const TodoList = ({ todos, onDeleteTodo, onUpdateTodo }) => {
+const TodoList = ({ todos, onDeleteTodo, onSaveTodo, onUpdateTodo }) => {
   return (
     <Grid container spacing={2}>
       {todos.map((todo) => (
@@ -12,6 +12,7 @@ const TodoList = ({ todos, onDeleteTodo, onUpdateTodo }) => {
             todo={todo}
             onDeleteTodo={onDeleteTodo}
             onUpdateTodo={onUpdateTodo}
+            onSaveTodo={onSaveTodo}
           />
         </Grid>
       ))}

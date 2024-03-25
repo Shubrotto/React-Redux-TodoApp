@@ -11,6 +11,7 @@ function App() {
 
   const handleAddTodo = (todo) => {
     dispatch(addTodo(todo));
+    console.log(addTodo(todo));
   };
 
   const handleDeleteTodo = (id) => {
@@ -18,8 +19,8 @@ function App() {
     console.log(deleteTodo(id));
   };
 
-  const handleEditTodo = (todo, id) => {
-    dispatch(editTodo(id));
+  const handleEditTodo = (todo) => {
+    dispatch(editTodo(todo));
     console.log(editTodo(todo));
   };
 
@@ -28,11 +29,12 @@ function App() {
       <Typography variant="h3" align="center" gutterBottom>
         Todo App
       </Typography>
-      <TodoForm onSaveTodo={handleAddTodo} onUpdateTodo={handleEditTodo} />
+      <TodoForm onSaveTodo={handleAddTodo} />
       <TodoList
         todos={todos}
         onDeleteTodo={handleDeleteTodo}
         onUpdateTodo={handleEditTodo}
+        onSaveTodo={handleAddTodo}
       />
     </Container>
   );
