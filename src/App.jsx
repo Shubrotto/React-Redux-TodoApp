@@ -1,5 +1,4 @@
-import React from "react";
-import { Container, Typography, Button, Grid } from "@material-ui/core";
+import { Container, Typography } from "@material-ui/core";
 import { useSelector, useDispatch } from "react-redux";
 import { addTodo, deleteTodo, editTodo } from "./redux/todosSlice";
 import TodoForm from "./components/TodoForm";
@@ -33,8 +32,7 @@ function App() {
       <TodoList
         todos={todos}
         onDeleteTodo={handleDeleteTodo}
-        onUpdateTodo={handleEditTodo}
-        onSaveTodo={handleAddTodo}
+        onEditTodo={handleEditTodo}
       />
     </Container>
   );

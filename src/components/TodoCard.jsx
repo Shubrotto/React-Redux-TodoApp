@@ -1,5 +1,5 @@
 // components/TodoCard.js
-import React, { useState } from "react";
+import { useState } from "react";
 import {
   Card,
   CardContent,
@@ -21,7 +21,7 @@ import ExpandLessIcon from "@material-ui/icons/ExpandLess";
 import ExpandMoreIcon from "@material-ui/icons/ExpandMore";
 import Proptypes from "prop-types";
 import { EditAttributesSharp } from "@material-ui/icons";
-import EditForm from "./EditForm";
+// import EditForm from "./EditForm";
 // import TodoForm from "./TodoForm";
 
 const useStyles = makeStyles((theme) => ({
@@ -40,15 +40,11 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-const TodoCard = ({ todo, onDeleteTodo, onUpdateTodo }) => {
+const TodoCard = ({ todo, onDeleteTodo, onEditTodo }) => {
   const [showFullDescription, setShowFullDescription] = useState(false);
   const classes = useStyles();
   const [open, setOpen] = useState(false);
-  const [editTodo, setEditTodo] = useState({
-    title: "",
-    description: "",
-    id: Date.now(),
-  });
+  const [updatedTodo, setUpdatedTodo] = useState({ ...todo });
 
   const handleToggleDescription = () => {
     setShowFullDescription(!showFullDescription);
@@ -60,14 +56,16 @@ const TodoCard = ({ todo, onDeleteTodo, onUpdateTodo }) => {
 
   const handleClose = () => {
     setOpen(false);
-    setEditTodo({ title: "", description: "", id: Date.now() });
+    setUpdatedTodo({ title: "", description: "", id: Date.now() });
   };
 
   const handleSave = () => {
-    onUpdateTodo(editTodo);
-    setEditTodo({ title: "", description: "", id: Date.now() });
+    onEditTodo(updatedTodo);
+    setUpdatedTodo({ title: "", description: "", id: Date.now() });
     handleClose();
   };
+  console.log(todo.title);
+  console.log(todo.description);
 
   return (
     <>
@@ -96,7 +94,7 @@ const TodoCard = ({ todo, onDeleteTodo, onUpdateTodo }) => {
 
           <IconButton
             edge="center"
-            aria-label="update"
+            aria-label="edit"
             onClick={() => handleShowForm()}
           >
             <EditAttributesSharp />
@@ -124,8 +122,10 @@ const TodoCard = ({ todo, onDeleteTodo, onUpdateTodo }) => {
             label="Title"
             type="text"
             fullWidth
-            value={todo.title}
-            onChange={(e) => setEditTodo({ ...todo, title: e.target.value })}
+            value={updatedTodo.title}
+            onChange={(e) =>
+              setUpdatedTodo({ ...updatedTodo, title: e.target.value })
+            }
           />
           <TextField
             margin="dense"
@@ -135,9 +135,9 @@ const TodoCard = ({ todo, onDeleteTodo, onUpdateTodo }) => {
             fullWidth
             multiline
             rows={4}
-            value={todo.description}
+            value={updatedTodo.description}
             onChange={(e) =>
-              setEditTodo({ ...todo, description: e.target.value })
+              setUpdatedTodo({ ...updatedTodo, description: e.target.value })
             }
           />
         </DialogContent>
@@ -157,8 +157,7 @@ const TodoCard = ({ todo, onDeleteTodo, onUpdateTodo }) => {
 TodoCard.propTypes = {
   todo: Proptypes.object,
   onDeleteTodo: Proptypes.func,
-  onUpdateTodo: Proptypes.func,
-  onSaveTodo: Proptypes.func,
+  onEditTodo: Proptypes.func,
 };
 
 export default TodoCard;

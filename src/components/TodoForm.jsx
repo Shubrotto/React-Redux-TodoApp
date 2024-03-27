@@ -8,6 +8,8 @@ import {
   DialogTitle,
 } from "@material-ui/core";
 
+import Proptypes from "prop-types";
+
 const TodoForm = ({ onSaveTodo }) => {
   const [open, setOpen] = useState(false);
   const [todo, setTodo] = useState({
@@ -83,6 +85,10 @@ const TodoForm = ({ onSaveTodo }) => {
       </Dialog>
     </div>
   );
+};
+
+TodoForm.propTypes = {
+  onSaveTodo: Proptypes.func,
 };
 
 export default TodoForm;

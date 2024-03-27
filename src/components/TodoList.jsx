@@ -1,9 +1,9 @@
 // components/TodoList.js
-import React from "react";
 import { Grid } from "@material-ui/core";
 import TodoCard from "./TodoCard"; // Import the TodoCard component
+import Proptypes from "prop-types";
 
-const TodoList = ({ todos, onDeleteTodo, onSaveTodo, onUpdateTodo }) => {
+const TodoList = ({ todos, onDeleteTodo, onEditTodo }) => {
   return (
     <Grid container spacing={2}>
       {todos.map((todo) => (
@@ -11,13 +11,18 @@ const TodoList = ({ todos, onDeleteTodo, onSaveTodo, onUpdateTodo }) => {
           <TodoCard
             todo={todo}
             onDeleteTodo={onDeleteTodo}
-            onUpdateTodo={onUpdateTodo}
-            onSaveTodo={onSaveTodo}
+            onEditTodo={onEditTodo}
           />
         </Grid>
       ))}
     </Grid>
   );
+};
+
+TodoList.propTypes = {
+  todos: Proptypes.object,
+  onDeleteTodo: Proptypes.func,
+  onEditTodo: Proptypes.func,
 };
 
 export default TodoList;
